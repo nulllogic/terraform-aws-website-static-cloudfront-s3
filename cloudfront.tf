@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------
 
 // Amazon CloudFront OAI (origin access identity)
-// -- Not using, due AWS recommendations
+// -- Not using, due AWS recommends to use OAC
 // -- https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html
 
 // CloudFront OAC (origin access control) 
