@@ -17,7 +17,6 @@ provider "aws" {
   skip_requesting_account_id  = false
   skip_metadata_api_check     = true
   s3_use_path_style           = true
-  profile                     = "AdministratorAccess-894917523912"
 }
 
 provider "aws" {
@@ -27,5 +26,4 @@ provider "aws" {
   #  skip_requesting_account_id  = false
   skip_metadata_api_check = true
   s3_use_path_style       = true
-  profile                 = "AdministratorAccess-894917523912"
 }
