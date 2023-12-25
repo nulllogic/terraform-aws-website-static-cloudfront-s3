@@ -2,14 +2,11 @@
 # CloudFront configuration
 #------------------------------------------------------------------------------
 
-// Amazon CloudFront origin access identity
-// -- We will use this to add principal to S3 bucket policy
-resource "aws_cloudfront_origin_access_identity" "oai" {
-  provider = aws.main
-  comment  = "OAI to restrict access to AWS S3 content"
-}
+// Amazon CloudFront OAI (origin access identity)
+// -- Not using, due AWS recommendations
+// -- https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html
 
-// CloudFront access control 
+// CloudFront OAC (origin access control) 
 // -- Manages an AWS CloudFront Origin Access Control, 
 // -- which is used by CloudFront Distributions with an Amazon S3 bucket as the origin.
 resource "aws_cloudfront_origin_access_control" "oac" {
