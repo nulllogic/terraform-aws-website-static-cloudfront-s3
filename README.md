@@ -1,4 +1,8 @@
-# terraform-static-website-aws
+# Terraform AWS static website module
+
+## Contributing
+
+See [Contributing](CONTRIBUTING.md)
 
 ## Changelog
 
@@ -6,4 +10,4 @@ See [Changelog](CHANGELOG.md)
 
 ## License
 
-See [License][LICENSE]
+See [License](LICENSE.md)
