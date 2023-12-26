@@ -1,11 +1,10 @@
 # Terraform AWS static website module
 
-<a href="#">
-    <img alt="Logo" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/header.png" />
-</a>
-
-<br/>
-<br/>
+<p>
+   <a href="#">
+       <img alt="Logo" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/header.png" />
+   </a>
+</p>
 
 <!-- Badges -->
 <p>
