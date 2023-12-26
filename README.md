@@ -29,7 +29,7 @@
   </a>
 </p>
 
-<div align="left">The main objective of this module is to leverage the power of AWS services, specifically CloudFront and S3, to host and deliver your static website efficiently and securely. By utilizing Terraform's infrastructure as code capabilities, this project streamlines the deployment process, making it easy for you to set up and manage your AWS static website.</div>
+<p align="left">The main objective of this module is to leverage the power of AWS services, specifically CloudFront and S3, to host and deliver your static website efficiently and securely. By utilizing Terraform's infrastructure as code capabilities, this project streamlines the deployment process, making it easy for you to set up and manage your AWS static website.</p>
 
 <p align="center">
   <a href="https://nulllogic.net/">
