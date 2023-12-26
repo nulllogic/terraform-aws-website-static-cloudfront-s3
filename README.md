@@ -116,14 +116,14 @@ docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf has
     <p>
 
    ```hcl
-   module "website-static-cloudfront-s3" {
-     source  = "nulllogic/website-static-cloudfront-s3/aws"
-   
-     tags = {
+  module "website-static-cloudfront-s3" {
+    source  = "nulllogic/website-static-cloudfront-s3/aws"
+
+    tags = {
        Environment = "dev"
        Terraform   = "true"
-     }
-   }
+    }
+  } 
    ```
 
    </p>
