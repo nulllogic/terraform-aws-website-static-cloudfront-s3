@@ -47,6 +47,7 @@
 - [Module Examples](#-module-examples-)
 
 <!-- Requirements -->
+<a name="-requirements-" />
 ## ┌ Requirements ┐
 
 <p>🗯️ <strong>Mandatory</strong></p>
@@ -61,6 +62,7 @@
 1. Domain, located in [Amazon AWS Route53](https://aws.amazon.com/route53/)
 
 <!-- Key Features -->
+<a name="-key-features-" />
 ## ┌ Key Features ┐
 
 ⚙️ Zero-config, **one-minute setup** with a **single CLI command**
@@ -76,12 +78,14 @@
 ✅ Full **test coverage**
 
 <!-- Quick Start -->
+<a name="-quick-start-" />
 ## ┌ Quick Start ┐
 By using this project, you can save time and effort in setting up your AWS static website. Its comprehensive Terraform code and thoughtful configuration options allow you to create a reliable, scalable, and performant static website on AWS without any problems.
 
 Feel free to explore the project on [GitHub](https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3). Happy coding!
 
 1st step
+
 ```
 docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest init
 ```
@@ -100,6 +104,7 @@ docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf has
 <br/>
 
 <!-- Module Examples -->
+<a name="-module-examples-" />
 ## ┌ Module Examples ┐
 
 <details>
