@@ -102,9 +102,10 @@ docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf has
 <!-- Module Architecture Examples Diagrams -->
 ## ┌ Module Architecture Examples Diagrams ┐
 
-<details> 
-  <summary>Example 1 structure</summary>
-    <img alt="Example 1" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example2.png" />
+<details>
+  <summary>Example 1 -> CloudFront + S3</summary>
+    <p></p>
+    <img alt="Example 1" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example1.png" />
 </details>
 
 <details> 
