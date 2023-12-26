@@ -7,10 +7,15 @@
 <br/>
 <br/>
 
-<div align="center">Some cool description here</div>
+<div align="left">Some cool description here</div>
 
 <br />
 <br />
+
+<details> 
+  <summary>Example 2 structure</summary>
+    <img alt="Example 2" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example2.png" />
+</details>
 
 ## ┌ Key Features ┐
 
@@ -44,12 +49,7 @@ docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf has
 docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest apply
 ```
 
-
 <br/>
-
-> [!NOTE]
-> Some cool note here
-
 
 ## ┌ Contributing ┐
 
