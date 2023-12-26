@@ -44,7 +44,7 @@
 - [Requirements](#-requirements-)
 - [Key Features](#-key-features-)
 - [Quick Start](#-quick-start-)
-- [Module Architecture Examples Diagrams](#-module-architecture-examples-diagrams-)
+- [Module Examples](#-module-examples-)
 
 <!-- Requirements -->
 ## ┌ Requirements ┐
@@ -99,17 +99,30 @@ docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf has
 
 <br/>
 
-<!-- Module Architecture Examples Diagrams -->
-## ┌ Module Architecture Examples Diagrams ┐
+<!-- Module Examples -->
+## ┌ Module Examples ┐
 
 <details>
   <summary>Example 1 -> CloudFront + S3</summary>
-    <p></p>
+    <p>
+
+   ```hcl
+   module "website-static-cloudfront-s3" {
+     source  = "nulllogic/website-static-cloudfront-s3/aws"
+   
+     tags = {
+       Environment = "dev"
+       Terraform   = "true"
+     }
+   }
+   ```
+
+   </p>
     <img alt="Example 1" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example1.png" />
 </details>
 
 <details> 
-  <summary>Example 2 structure</summary>
+  <summary>Example 2 -> Cloud</summary>
     <img alt="Example 2" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example2.png" />
 </details>
 
