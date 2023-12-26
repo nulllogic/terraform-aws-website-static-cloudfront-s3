@@ -14,14 +14,6 @@
 <br />
 <br />
 
-<div align="center">
-
-[![Twitter Follow](https://img.shields.io/twitter/follow/nulllogic?style=social)](https://twitter.com/nulllogic)
-
-</div>
-
-<br/>
-
 ## ┌ Key Features ┐
 
 ⚙️ Zero-config, **one-minute setup** with a **single CLI command**
