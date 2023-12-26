@@ -50,10 +50,16 @@
 <!-- Requirements -->
 ## ┌ Requirements ┐
 
+<p>🗯️ <strong>Mandatory</strong></p>
+
 1. 🐳 Docker ( [download](https://docs.docker.com/get-docker/) )
 2. 🤖 AWS account + security keys ( [instruction](https://aws.amazon.com/blogs/security/wheres-my-secret-access-key/) ) 
    1. `aws_access_key_id`
    2. `aws_secret_access_key`
+
+<p>💭️ <strong>Optional</strong></p>
+
+1. Domain, located in [Amazon AWS Route53](https://aws.amazon.com/route53/)
 
 <!-- Key Features -->
 ## ┌ Key Features ┐
