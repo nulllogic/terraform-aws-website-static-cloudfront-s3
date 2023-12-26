@@ -12,11 +12,30 @@
 <br />
 <br />
 
+## ┌ Table of Contents ┐
+
+- [Requirements](#-requirements-)
+- [Module Architecture Examples Diagrams](#-module-architecture-examples-diagrams-)
+- [Key Features](#-key-features-)
+- [Quick Start](#-quick-start-)
+
+<!-- Requirements -->
+## ┌ Requirements ┐
+
+<!-- Module Architecture Examples Diagrams -->
+## ┌ Module Architecture Examples Diagrams ┐
+
+<details> 
+  <summary>Example 1 structure</summary>
+    <img alt="Example 1" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example2.png" />
+</details>
+
 <details> 
   <summary>Example 2 structure</summary>
     <img alt="Example 2" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example2.png" />
 </details>
 
+<!-- Key Features -->
 ## ┌ Key Features ┐
 
 ⚙️ Zero-config, **one-minute setup** with a **single CLI command**
@@ -31,6 +50,7 @@
 
 ✅ Full **test coverage**
 
+<!-- Quick Start -->
 ## ┌ Quick Start ┐
 
 1st step
