@@ -48,6 +48,7 @@
 
 <!-- Requirements -->
 <a name="-requirements-" />
+
 ## ┌ Requirements ┐
 
 <p>🗯️ <strong>Mandatory</strong></p>
@@ -63,6 +64,7 @@
 
 <!-- Key Features -->
 <a name="-key-features-" />
+
 ## ┌ Key Features ┐
 
 ⚙️ Zero-config, **one-minute setup** with a **single CLI command**
@@ -79,6 +81,7 @@
 
 <!-- Quick Start -->
 <a name="-quick-start-" />
+
 ## ┌ Quick Start ┐
 By using this project, you can save time and effort in setting up your AWS static website. Its comprehensive Terraform code and thoughtful configuration options allow you to create a reliable, scalable, and performant static website on AWS without any problems.
 
@@ -105,6 +108,7 @@ docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf has
 
 <!-- Module Examples -->
 <a name="-module-examples-" />
+
 ## ┌ Module Examples ┐
 
 <details>
