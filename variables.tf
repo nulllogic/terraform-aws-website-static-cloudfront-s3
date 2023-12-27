@@ -1,13 +1,13 @@
 variable "domain" {
   description = "Domain name, like this one - example.com"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "bucket" {
   description = "S3 bucket name"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "region" {
