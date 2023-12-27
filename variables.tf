@@ -1,13 +1,13 @@
 variable "domain" {
   description = "Domain name, like this one - example.com"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "bucket" {
   description = "S3 bucket name"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "region" {
@@ -38,7 +38,7 @@ variable "s3" {
   })
 
   default = {
-    bucket_name = "${var.bucket}"
+    bucket_name = var.bucket
   }
 }
 
@@ -50,7 +50,7 @@ variable "route53" {
   })
 
   default = {
-    domain_name = "${var.domain}"
+    domain_name = var.domain
   }
 }
 
