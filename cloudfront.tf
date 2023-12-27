@@ -21,7 +21,7 @@ resource "aws_cloudfront_origin_access_control" "oac" {
 resource "aws_cloudfront_distribution" "cloudfront" {
   provider = aws.main
 
-  default_root_object = "index.html"
+  default_root_object = var.cloudfront.root.default_object
   aliases             = !try(var.route53.domain, null) ? [var.route53.domain] : []
 
   origin {
@@ -66,7 +66,6 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     cloudfront_default_certificate = !try(var.route53.domain, null) ? null : true
     acm_certificate_arn            = !try(var.route53.domain, null) ? aws_acm_certificate.cert[0].arn : null
     ssl_support_method             = "sni-only"
-    minimum_protocol_version       = var.cloudfront.root.minimum_protocol_version
   }
 
   restrictions {

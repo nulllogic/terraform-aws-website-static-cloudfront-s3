@@ -30,7 +30,7 @@ resource "aws_route53_record" "cert_validation" {
   name            = each.value.name
   records         = [each.value.record]
   type            = each.value.type
-  zone_id         = !try(var.route53.domain, null) ? data.aws_route53_zone.zone[0].zone_id : "0123456789ABCDEFGHIJK"
+  zone_id         = !try(var.route53.domain, null) ? data.aws_route53_zone.zone[0].zone_id : null
   ttl             = 60
 }
 
@@ -38,6 +38,6 @@ resource "aws_acm_certificate_validation" "cert" {
   count    = !try(var.route53.domain, null) ? 1 : 0
   provider = aws.acm_provider
 
-  certificate_arn         = aws_acm_certificate.cert.arn
+  certificate_arn         = aws_acm_certificate.cert[0].arn
   validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
 }
