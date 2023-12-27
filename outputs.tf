@@ -3,5 +3,5 @@ output "bucket_name" {
 }
 
 output "cloudfront_url" {
-  value = aws_cloudfront_distribution.cloudfront.cloudfront_url
+  value = aws_cloudfront_distribution.cloudfront.domain_name
 }

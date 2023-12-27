@@ -12,7 +12,7 @@ data "aws_route53_zone" "zone" {
 resource "aws_route53_record" "website" {
   count = !try(var.route53.domain, null) ? 1 : 0
 
-  zone_id = data.aws_route53_zone.zone.id
+  zone_id = data.aws_route53_zone.zone[0].id
   name    = var.route53.domain
   type    = "A"
 
