@@ -15,13 +15,6 @@ resource "aws_acm_certificate" "cert" {
   }
 }
 
-data "aws_route53_zone" "zone" {
-  count        = !try(var.route53.domain, null) ? 1 : 0
-  provider     = aws.main
-  name         = var.route53.domain
-  private_zone = false
-}
-
 resource "aws_route53_record" "cert_validation" {
   provider = aws.main
 
