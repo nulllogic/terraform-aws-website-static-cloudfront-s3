@@ -22,7 +22,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   provider = aws.main
 
   default_root_object = var.cloudfront.root.default_object
-  aliases             = !try(var.route53.domain, null) ? [var.route53.domain] : []
+  aliases             = var.route53.domain != null ? [var.route53.domain] : []
 
   origin {
     domain_name              = aws_s3_bucket.main.bucket_regional_domain_name
@@ -63,8 +63,8 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = !try(var.route53.domain, null) ? null : true
-    acm_certificate_arn            = !try(var.route53.domain, null) ? aws_acm_certificate.cert[0].arn : null
+    cloudfront_default_certificate = var.route53.domain != null ? null : true
+    acm_certificate_arn            = var.route53.domain != null ? aws_acm_certificate.cert[0].arn : null
     ssl_support_method             = "sni-only"
   }
 

@@ -6,7 +6,7 @@
 //
 resource "aws_s3_bucket" "main" {
   provider = aws.main
-  bucket   = !try(var.s3.bucket, null) ? var.s3.bucket : "my-s3-bucket-${random_uuid.uuid.result}"
+  bucket   = var.s3.bucket != null ? var.s3.bucket : "my-s3-bucket-${random_uuid.uuid.result}"
 
   force_destroy = true
 

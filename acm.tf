@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------
 
 resource "aws_acm_certificate" "cert" {
-  count    = !try(var.route53.domain, null) ? 1 : 0
+  count    = var.route53.domain != null ? 1 : 0
   provider = aws.acm_provider
 
   domain_name               = var.route53.domain
@@ -18,7 +18,7 @@ resource "aws_acm_certificate" "cert" {
 resource "aws_route53_record" "cert_validation" {
   provider = aws.main
 
-  for_each = !try(var.route53.domain, null) ? {
+  for_each = var.route53.domain != null ? {
     for dvo in aws_acm_certificate.cert[0].domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
@@ -35,7 +35,7 @@ resource "aws_route53_record" "cert_validation" {
 }
 
 resource "aws_acm_certificate_validation" "cert" {
-  count    = !try(var.route53.domain, null) ? 1 : 0
+  count    = var.route53.domain != null ? 1 : 0
   provider = aws.acm_provider
 
   certificate_arn         = aws_acm_certificate.cert[0].arn

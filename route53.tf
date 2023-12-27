@@ -3,14 +3,14 @@
 #------------------------------------------------------------------------------
 
 data "aws_route53_zone" "zone" {
-  count        = !try(var.route53.domain, null) ? 1 : 0
+  count        = var.route53.domain != null ? 1 : 0
   provider     = aws.main
   name         = var.route53.domain
   private_zone = false
 }
 
 resource "aws_route53_record" "website" {
-  count = !try(var.route53.domain, null) ? 1 : 0
+  count = var.route53.domain != null ? 1 : 0
 
   zone_id = data.aws_route53_zone.zone[0].id
   name    = var.route53.domain
