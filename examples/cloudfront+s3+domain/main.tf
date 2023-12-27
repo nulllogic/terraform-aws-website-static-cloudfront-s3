@@ -7,6 +7,7 @@ module "website-static-cloudfront-s3" {
   providers = {
     aws.main = aws.main
     aws.acm_provider = aws.acm_provider
+    random = random
   }
 
   tags = {

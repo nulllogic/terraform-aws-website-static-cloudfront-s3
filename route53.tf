@@ -3,13 +3,14 @@
 #------------------------------------------------------------------------------
 
 data "aws_route53_zone" "zone" {
-  count        = !try(var.route53, null) ? 1 : 0
+  count        = !try(var.route53.domain, null) ? 1 : 0
   provider     = aws.main
   name         = var.route53.domain
   private_zone = false
 }
 
 resource "aws_route53_record" "cert_validation" {
+  count    = !try(var.route53.domain, null) ? 1 : 0
   provider = aws.main
 
   for_each = {
@@ -29,6 +30,8 @@ resource "aws_route53_record" "cert_validation" {
 }
 
 resource "aws_route53_record" "website" {
+  count = !try(var.route53.domain, null) ? 1 : 0
+
   zone_id = data.aws_route53_zone.zone.id
   name    = var.route53.domain
   type    = "A"

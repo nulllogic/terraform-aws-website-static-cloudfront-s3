@@ -71,7 +71,7 @@
 
 🔐 AWS providers for smooth **deployment** and **certificate** generation
 
-⚡ Out-of-the-box for **static website**
+⚡ Out-of-the-box support for **static website**
 
 💪 Future-proof, **robust architecture**
 
@@ -81,6 +81,7 @@
 
 <!-- Quick Start -->
 <a name="-quick-start-" />
+
 
 ## ┌ Quick Start ┐
 

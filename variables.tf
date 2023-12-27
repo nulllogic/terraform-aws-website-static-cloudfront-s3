@@ -1,17 +1,3 @@
-variable "config" {
-  description = "Special variable to add additional logic for our module"
-
-  type = object({
-    enable_custom_domain            = bool
-    issue_custom_domain_certificate = bool
-  })
-
-  default = {
-    enable_custom_domain            = false
-    issue_custom_domain_certificate = false
-  }
-}
-
 variable "s3" {
   description = "S3 bucket varitable to store the settings of S3 resource"
 
@@ -39,18 +25,28 @@ variable "route53" {
 variable "cloudfront" {
 
   type = object({
-    default_root_object      = string,
-    default_ttl              = number,
-    max_ttl                  = number,
-    min_ttl                  = number,
-    minimum_protocol_version = string,
-    price_class              = string,
+    root = object({
+      default_root_object = string,
+      price_class         = string,
+
+    }),
+    cache_behavior = object({
+      default_ttl = number,
+      max_ttl     = number,
+      min_ttl     = number,
+    })
   })
 
   default = {
-    default_root_object      = "index.html"
-    minimum_protocol_version = "TLSv1.2_2021",
-    price_class              = "PriceClass_200"
+    root = {
+      default_root_object = "index.html"
+      price_class         = "PriceClass_200"
+    },
+    cache_behavior = {
+      min_ttl     = 31536000
+      max_ttl     = 31536000
+      default_ttl = 31536000
+    }
   }
 }
 

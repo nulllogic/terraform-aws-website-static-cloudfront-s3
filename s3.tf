@@ -5,8 +5,8 @@
 // S3 bucket init
 //
 resource "aws_s3_bucket" "main" {
-  provider      = aws.main
-  bucket_prefix = "website-s3-bucket-"
+  provider = aws.main
+  bucket   = !try(var.s3.bucket, null) ? var.s3.bucket : "my-s3-bucket-${random_uuid.uuid.result}"
 
   force_destroy = true
 
@@ -73,3 +73,7 @@ resource "aws_s3_bucket_ownership_controls" "main" {
     object_ownership = "BucketOwnerPreferred"
   }
 }
+
+// Custom name generator for s3 bucket
+
+resource "random_uuid" "uuid" {}

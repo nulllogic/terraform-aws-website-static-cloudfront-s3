@@ -3,6 +3,7 @@
 #------------------------------------------------------------------------------
 
 resource "aws_acm_certificate" "cert" {
+  count    = !try(var.route53.domain, null) ? 1 : 0
   provider = aws.acm_provider
 
   domain_name               = var.route53.domain
@@ -15,6 +16,7 @@ resource "aws_acm_certificate" "cert" {
 }
 
 resource "aws_acm_certificate_validation" "cert" {
+  count    = !try(var.route53.domain, null) ? 1 : 0
   provider = aws.acm_provider
 
   certificate_arn         = aws_acm_certificate.cert.arn

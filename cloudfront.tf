@@ -22,17 +22,15 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   provider = aws.main
 
   default_root_object = "index.html"
-  aliases             = [var.route53.domain]
+  aliases             = !try(var.route53.domain, null) ? [var.route53.domain] : []
 
   origin {
-
     domain_name              = aws_s3_bucket.main.bucket_regional_domain_name
     origin_id                = aws_s3_bucket.main.bucket
     origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
-
   }
 
-  price_class     = "PriceClass_200"
+  price_class     = var.cloudfront.root.price_class
   enabled         = true
   is_ipv6_enabled = true
 
@@ -42,9 +40,9 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     target_origin_id = aws_s3_bucket.main.bucket
     compress         = true
 
-    min_ttl     = 31536000
-    max_ttl     = 31536000
-    default_ttl = 31536000
+    min_ttl     = var.cloudfront.cache_behavior.min_ttl
+    max_ttl     = var.cloudfront.cache_behavior.max_ttl
+    default_ttl = var.cloudfront.cache_behavior.default_ttl
 
     forwarded_values {
       query_string = false
@@ -65,11 +63,10 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   }
 
   viewer_certificate {
-    // cloudfront_default_certificate = true
-    cloudfront_default_certificate = false
+    cloudfront_default_certificate = !try(var.route53.domain, null) ? false : true
     acm_certificate_arn            = aws_acm_certificate.cert.arn
     ssl_support_method             = "sni-only"
-    minimum_protocol_version       = var.cloudfront.minimum_protocol_version
+    minimum_protocol_version       = var.cloudfront.root.minimum_protocol_version
   }
 
   restrictions {
@@ -80,5 +77,3 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 
   tags = var.tags
 }
-
-
