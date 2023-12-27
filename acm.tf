@@ -30,7 +30,7 @@ resource "aws_route53_record" "cert_validation" {
   name            = each.value.name
   records         = [each.value.record]
   type            = each.value.type
-  zone_id         = !try(var.route53.domain, null) ? data.aws_route53_zone.zone[0].zone_id : null
+  zone_id         = var.route53.domain != null ? data.aws_route53_zone.zone[0].zone_id : null
   ttl             = 60
 }
 
