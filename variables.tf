@@ -1,13 +1,13 @@
 variable "domain" {
   description = "Domain name, like this one - example.com"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "bucket" {
   description = "S3 bucket name"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "region" {
@@ -18,10 +18,12 @@ variable "region" {
 
 variable "config" {
   description = "Special variable to add additional logic for our module"
+
   type = object({
     enable_custom_domain            = bool
     issue_custom_domain_certificate = bool
   })
+
   default = {
     enable_custom_domain            = false
     issue_custom_domain_certificate = false
@@ -30,25 +32,32 @@ variable "config" {
 
 variable "s3" {
   description = "S3 bucket varitable to store the settings of S3 resource"
+
   type = object({
     bucket_name = string
   })
+
+  default = {
+    bucket_name = "${var.bucket}"
+  }
 }
 
 variable "route53" {
   description = "Route53 varitable to store the settings of Route53 resource"
 
   type = object({
-    domain_name = ""
+    domain_name = string
   })
+
   default = {
-    domain_name = ""
+    domain_name = "${var.domain}"
   }
 }
 
 variable "cloudfront" {
 
   type = object({
+    default_root_object      = string,
     default_root_object      = string,
     default_ttl              = number,
     max_ttl                  = number,
