@@ -22,7 +22,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   provider = aws.main
 
   default_root_object = "index.html"
-  aliases             = [local.domain]
+  aliases             = [var.route53.domain]
 
   origin {
 

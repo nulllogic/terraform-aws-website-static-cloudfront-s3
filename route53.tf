@@ -3,8 +3,9 @@
 #------------------------------------------------------------------------------
 
 data "aws_route53_zone" "zone" {
+  count        = !try(var.route53, null) ? 1 : 0
   provider     = aws.main
-  name         = local.domain
+  name         = var.route53.domain
   private_zone = false
 }
 
@@ -29,7 +30,7 @@ resource "aws_route53_record" "cert_validation" {
 
 resource "aws_route53_record" "website" {
   zone_id = data.aws_route53_zone.zone.id
-  name    = local.domain
+  name    = var.route53.domain
   type    = "A"
 
   alias {
