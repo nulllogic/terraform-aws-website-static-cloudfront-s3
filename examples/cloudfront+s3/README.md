@@ -5,6 +5,11 @@ No extra configuration settings is required to run the module
 module "website-static-cloudfront-s3" {
   source  = "nulllogic/website-static-cloudfront-s3/aws"
 
+  providers = {
+    aws.main         = aws.main
+    aws.acm_provider = aws.acm_provider
+  }
+
   tags = {
     Environment = "dev"
     Terraform   = "true"
@@ -20,10 +25,12 @@ module "website-static-cloudfront-s3" {
   source  = "nulllogic/website-static-cloudfront-s3/aws"
 
   # Bucket name
-  bucket = "test-bucket-s3"
+  s3.bucket = "test-bucket-s3"
 
-  # Region, that you want use at AWS
-  region = "eu-west-1"
+  providers = {
+    aws.main         = aws.main
+    aws.acm_provider = aws.acm_provider
+  }
 
   tags = {
     Environment = "dev"
@@ -40,10 +47,12 @@ module "website-static-cloudfront-s3" {
   source  = "nulllogic/website-static-cloudfront-s3/aws"
 
   # Bucket name
-  bucket = "test-bucket-s3"
+  s3.bucket = "test-bucket-s3"
 
-  # Region, that you want use at AWS
-  region = "eu-west-1"
+  providers = {
+    aws.main         = aws.main
+    aws.acm_provider = aws.acm_provider
+  }
 
   tags = {
     Environment = "dev"

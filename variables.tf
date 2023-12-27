@@ -16,11 +16,11 @@ variable "s3" {
   description = "S3 bucket varitable to store the settings of S3 resource"
 
   type = object({
-    bucket_name = string
+    bucket = string
   })
 
   default = {
-    bucket_name = null
+    bucket = null
   }
 }
 
@@ -28,18 +28,17 @@ variable "route53" {
   description = "Route53 varitable to store the settings of Route53 resource"
 
   type = object({
-    domain_name = string
+    domain = string
   })
 
   default = {
-    domain_name = null
+    domain = null
   }
 }
 
 variable "cloudfront" {
 
   type = object({
-    default_root_object      = string,
     default_root_object      = string,
     default_ttl              = number,
     max_ttl                  = number,
