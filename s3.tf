@@ -5,18 +5,13 @@
 // S3 bucket init
 //
 resource "aws_s3_bucket" "main" {
-  provider = aws.main
+  provider      = aws.main
   bucket_prefix = "website-s3-bucket-"
-  
+
   force_destroy = true
 
   lifecycle {
     prevent_destroy = false
-  }
-
-  tags = {
-    Name = "S3 bucket website",
-    Project = "Demo"
   }
 }
 
@@ -25,7 +20,7 @@ resource "aws_s3_bucket" "main" {
 //
 resource "aws_s3_bucket_public_access_block" "main" {
 
-  bucket                  = aws_s3_bucket.main.id
+  bucket = aws_s3_bucket.main.id
 
   block_public_acls       = true
   block_public_policy     = true

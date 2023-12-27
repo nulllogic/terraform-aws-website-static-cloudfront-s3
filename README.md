@@ -54,7 +54,7 @@
 <p>🗯️ <strong>Mandatory</strong></p>
 
 1. 🐳 Docker ( [download](https://docs.docker.com/get-docker/) )
-2. 🤖 AWS account + security keys ( [instruction](https://aws.amazon.com/blogs/security/wheres-my-secret-access-key/) ) 
+2. 🤖 AWS account + security keys ( [instruction](https://aws.amazon.com/blogs/security/wheres-my-secret-access-key/) )
    1. `aws_access_key_id`
    2. `aws_secret_access_key`
 
@@ -131,7 +131,7 @@ docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf has
 </details>
 
 <details> 
-  <summary>Example 2 -> Cloud</summary>
+  <summary>Example 2 -> CloudFront + S3 + Domain</summary>
     <img alt="Example 2" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example2.png" />
 </details>
 

@@ -22,12 +22,12 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   provider = aws.main
 
   default_root_object = "index.html"
-  aliases = [local.domain]
-  
+  aliases             = [local.domain]
+
   origin {
 
-    domain_name = aws_s3_bucket.main.bucket_regional_domain_name
-    origin_id   = aws_s3_bucket.main.bucket
+    domain_name              = aws_s3_bucket.main.bucket_regional_domain_name
+    origin_id                = aws_s3_bucket.main.bucket
     origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
 
   }
@@ -67,9 +67,9 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   viewer_certificate {
     // cloudfront_default_certificate = true
     cloudfront_default_certificate = false
-    acm_certificate_arn      = aws_acm_certificate.cert.arn
-    ssl_support_method       = "sni-only"
-    minimum_protocol_version = "TLSv1.2_2021"
+    acm_certificate_arn            = aws_acm_certificate.cert.arn
+    ssl_support_method             = "sni-only"
+    minimum_protocol_version       = var.cloudfront.minimum_protocol_version
   }
 
   restrictions {
