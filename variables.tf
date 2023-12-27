@@ -14,6 +14,7 @@ variable "region" {
 }
 
 variable "config" {
+  description = "Special variable to add additional logic for our module"
   type = object({
     enable_custom_domain            = bool
     issue_custom_domain_certificate = bool
@@ -25,12 +26,15 @@ variable "config" {
 }
 
 variable "s3" {
+  description = "S3 bucket varitable to store the settings of S3 resource"
   type = object({
     bucket_name = string
   })
 }
 
 variable "route53" {
+  description = "Route53 varitable to store the settings of Route53 resource"
+
   type = object({
     domain_name = ""
   })
@@ -47,7 +51,6 @@ variable "cloudfront" {
     min_ttl                  = number,
     minimum_protocol_version = string,
     price_class              = string,
-
   })
 
   default = {

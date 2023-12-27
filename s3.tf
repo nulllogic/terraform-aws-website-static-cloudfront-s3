@@ -13,6 +13,8 @@ resource "aws_s3_bucket" "main" {
   lifecycle {
     prevent_destroy = false
   }
+
+  tags = var.tags
 }
 
 // Make S3 bucket private

@@ -77,6 +77,8 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       restriction_type = "none"
     }
   }
+
+  tags = var.tags
 }
 
 
