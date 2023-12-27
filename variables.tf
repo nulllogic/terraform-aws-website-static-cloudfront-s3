@@ -1,10 +1,13 @@
 variable "domain" {
   description = "Domain name, like this one - example.com"
+  type        = string
+  default     = ""
 }
 
 variable "bucket" {
   description = "S3 bucket name"
   type        = string
+  default     = ""
 }
 
 variable "region" {
@@ -44,6 +47,7 @@ variable "route53" {
 }
 
 variable "cloudfront" {
+
   type = object({
     default_root_object      = string,
     default_ttl              = number,
