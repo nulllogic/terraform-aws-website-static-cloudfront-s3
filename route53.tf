@@ -10,6 +10,7 @@ data "aws_route53_zone" "zone" {
 }
 
 resource "aws_route53_record" "cert_validation" {
+  count    = !try(var.route53.domain, null) ? 1 : 0
   provider = aws.main
 
   for_each = {
