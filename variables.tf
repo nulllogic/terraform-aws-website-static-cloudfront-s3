@@ -26,9 +26,8 @@ variable "cloudfront" {
 
   type = object({
     root = object({
-      default_root_object = string,
-      price_class         = string,
-
+      default_object = string,
+      price_class    = string,
     }),
     cache_behavior = object({
       default_ttl = number,
@@ -39,8 +38,8 @@ variable "cloudfront" {
 
   default = {
     root = {
-      default_root_object = "index.html"
-      price_class         = "PriceClass_200"
+      default_object = "index.html"
+      price_class    = "PriceClass_200"
     },
     cache_behavior = {
       min_ttl     = 31536000
