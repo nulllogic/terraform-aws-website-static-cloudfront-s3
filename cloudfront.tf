@@ -64,7 +64,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 
   viewer_certificate {
     cloudfront_default_certificate = !try(var.route53.domain, null) ? null : true
-    acm_certificate_arn            = !try(var.route53.domain, null) ? aws_acm_certificate.cert.arn : null
+    acm_certificate_arn            = !try(var.route53.domain, null) ? aws_acm_certificate.cert[0].arn : null
     ssl_support_method             = "sni-only"
     minimum_protocol_version       = var.cloudfront.root.minimum_protocol_version
   }

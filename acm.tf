@@ -19,7 +19,7 @@ resource "aws_route53_record" "cert_validation" {
   provider = aws.main
 
   for_each = !try(var.route53.domain, null) ? {
-    for dvo in aws_acm_certificate.cert.domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.cert[0].domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
@@ -30,7 +30,7 @@ resource "aws_route53_record" "cert_validation" {
   name            = each.value.name
   records         = [each.value.record]
   type            = each.value.type
-  zone_id         = !try(var.route53.domain, null) ? data.aws_route53_zone.zone.zone_id : "0123456789ABCDEFGHIJK"
+  zone_id         = !try(var.route53.domain, null) ? data.aws_route53_zone.zone[0].zone_id : "0123456789ABCDEFGHIJK"
   ttl             = 60
 }
 
