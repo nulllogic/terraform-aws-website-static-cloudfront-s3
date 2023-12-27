@@ -1,21 +1,3 @@
-variable "domain" {
-  description = "Domain name, like this one - example.com"
-  type        = string
-  default     = null
-}
-
-variable "bucket" {
-  description = "S3 bucket name"
-  type        = string
-  default     = null
-}
-
-variable "region" {
-  type        = string
-  description = "Please select the region, that you want to use in AWS"
-  default     = "eu-west-1"
-}
-
 variable "config" {
   description = "Special variable to add additional logic for our module"
 
@@ -38,7 +20,7 @@ variable "s3" {
   })
 
   default = {
-    bucket_name = var.bucket
+    bucket_name = null
   }
 }
 
@@ -50,7 +32,7 @@ variable "route53" {
   })
 
   default = {
-    domain_name = var.domain
+    domain_name = null
   }
 }
 
