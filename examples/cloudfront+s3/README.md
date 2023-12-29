@@ -25,7 +25,9 @@ module "website-static-cloudfront-s3" {
   source  = "nulllogic/website-static-cloudfront-s3/aws"
 
   # Bucket name
-  s3.bucket = "test-bucket-s3"
+  s3 = {
+    bucket = "test-bucket-s3"
+  }
 
   providers = {
     aws.main         = aws.main
@@ -47,7 +49,9 @@ module "website-static-cloudfront-s3" {
   source  = "nulllogic/website-static-cloudfront-s3/aws"
 
   # Bucket name
-  s3.bucket = "test-bucket-s3"
+  s3 = {
+    bucket = "test-bucket-s3"
+  }
 
   providers = {
     aws.main         = aws.main

@@ -7,4 +7,3 @@ output "cloudfront_url" {
   description = "Domain name corresponding to the CloudFront distribution."
   value       = aws_cloudfront_distribution.cloudfront.domain_name
 }
-
