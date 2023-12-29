@@ -6,7 +6,7 @@
 //
 resource "aws_s3_bucket" "main" {
   provider = aws.main
-  bucket   = var.s3.bucket != null ? var.s3.bucket : "my-s3-bucket-${random_uuid.uuid.result}"
+  bucket   = var.s3.bucket != null ? var.s3.bucket : "s3-bucket-${random_uuid.uuid.result}"
 
   force_destroy = true
 
@@ -74,6 +74,6 @@ resource "aws_s3_bucket_ownership_controls" "main" {
   }
 }
 
-// Custom name generator for s3 bucket
-
+// Random name generator for s3 bucket
+//
 resource "random_uuid" "uuid" {}
