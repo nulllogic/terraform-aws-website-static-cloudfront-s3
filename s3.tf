@@ -77,3 +77,32 @@ resource "aws_s3_bucket_ownership_controls" "main" {
 // Random name generator for s3 bucket
 //
 resource "random_uuid" "uuid" {}
+
+// Upload dummy index.html file to s3 bucket
+//
+
+resource "aws_s3_object" "index" {
+  bucket = s3.bucket
+  key    = "index.html"
+
+  content_type = "text/html"
+  content      = <<EOF
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>My Website</title>
+      </head>
+      <body>
+        <main>
+            <h1>Welcome to My Website</h1>  
+        </main>
+      </body>
+    </html>
+  EOF 
+}
+
+// Upload files to s3 bucket
+//
