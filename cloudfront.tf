@@ -10,7 +10,7 @@
 // -- Manages an AWS CloudFront Origin Access Control, 
 // -- which is used by CloudFront Distributions with an Amazon S3 bucket as the origin.
 resource "aws_cloudfront_origin_access_control" "oac" {
-  name                              = var.route53.domain != null ? "CloudFront OAC ${var.route53.domain}" : "CloudFront OAC ${random_string.oac}"
+  name                              = var.route53.domain != null ? "CloudFront OAC ${var.route53.domain}" : "CloudFront OAC ${random_string.oac.id}"
   description                       = "CloudFront Origin Access Control"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
