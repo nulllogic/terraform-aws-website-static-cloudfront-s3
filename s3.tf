@@ -82,7 +82,7 @@ resource "random_uuid" "uuid" {}
 //
 
 resource "aws_s3_object" "index" {
-  bucket = s3.bucket
+  bucket = aws_s3_bucket.main.bucket
   key    = "index.html"
 
   content_type = "text/html"
