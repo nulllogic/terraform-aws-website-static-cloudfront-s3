@@ -97,7 +97,7 @@ resource "aws_s3_object" "index" {
       </head>
       <body>
         <main>
-            <h1>Welcome to My Website</h1>  
+            <h1>Welcome to My Website</h1>
         </main>
       </body>
     </html>
