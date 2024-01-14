@@ -82,7 +82,7 @@ resource "random_uuid" "uuid" {}
 //
 
 resource "aws_s3_object" "index" {
-  count        = var.enable.s3.index_html != false ? 1 : 0
+  count  = var.enable.s3.index_html != false ? 1 : 0
   bucket = aws_s3_bucket.main.bucket
   key    = "index.html"
 
@@ -110,6 +110,6 @@ resource "aws_s3_object" "index" {
 resource "aws_s3_object" "upload_dir" {
   count        = var.enable.s3.upload_dir != "" ? 1 : 0
   bucket       = aws_s3_bucket.main.bucket
-  key          = "/cloud"
+  key          = var.enable.s3.upload_dir
   content_type = "application/x-directory"
 }
