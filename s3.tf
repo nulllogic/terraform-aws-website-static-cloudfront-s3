@@ -82,6 +82,7 @@ resource "random_uuid" "uuid" {}
 //
 
 resource "aws_s3_object" "index" {
+  count        = var.enable.s3.index_html != false ? 1 : 0
   bucket = aws_s3_bucket.main.bucket
   key    = "index.html"
 

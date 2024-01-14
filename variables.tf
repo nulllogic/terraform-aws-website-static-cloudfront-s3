@@ -1,3 +1,19 @@
+variable "enable" {
+  description = "Basic settings for the project"
+
+  type = object ({
+      s3 = object({
+        index_html = bool 
+      })
+  })
+
+  default = {
+    s3 = {
+      index_html = true
+    }
+  }
+}
+
 variable "s3" {
   description = "S3 bucket varitable to store the settings of S3 resource"
 
