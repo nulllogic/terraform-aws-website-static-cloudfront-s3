@@ -80,7 +80,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 // CloudFront function to handle requests
 //
 resource "aws_cloudfront_function" "request_handler" {
-  name = var.route53.domain != null ? "CloudFront Request Handler Function ${var.route53.domain}" : "CloudFront Request Handler Function ${random_string.oac.id}"
+  name = var.route53.domain != null ? "CloudFront Request Handler Function ${replace(var.route53.domain, ".", "_")}" : "CloudFront Request Handler Function ${random_string.oac.id}"
   runtime = "cloudfront-js-2.0"
   comment = "AWS CloudFront edge function requests handler"
   publish = true
