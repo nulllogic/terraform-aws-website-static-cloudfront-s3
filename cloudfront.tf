@@ -52,13 +52,11 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       }
     }
 
-    /*
-    lambda_function_association {
+    function_association {
       event_type   = "viewer-request"
-      lambda_arn   = aws_lambda_function.short_redirect.qualified_arn
-      include_body = false
+      function_arn = aws_cloudfront_function.request_handler.arn
     }
-*/
+
     viewer_protocol_policy = "allow-all"
   }
 
@@ -76,6 +74,34 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   }
 
   tags = var.tags
+}
+
+
+// CloudFront function to handle requests
+//
+resource "aws_cloudfront_function" "request_handler" {
+  name = "cloudfront_request_handler"
+  runtime = "cloudfront-js-2.0"
+  comment = "AWS CloudFront edge function requests handler"
+  publish = true
+
+  code = <<EOF
+    function handler(event) {
+        var request = event.request;
+        var uri = request.uri;
+        
+        // Check whether the URI is missing a file name.
+        if (uri.endsWith('/')) {
+            request.uri += 'index.html';
+        } 
+        // Check whether the URI is missing a file extension.
+        else if (!uri.includes('.')) {
+            request.uri += '/index.html';
+        }
+
+        return request;
+    }
+  EOF
 }
 
 // Random name generator for OAC bucket policy
