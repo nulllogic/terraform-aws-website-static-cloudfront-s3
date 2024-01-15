@@ -80,7 +80,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 // CloudFront function to handle requests
 //
 resource "aws_cloudfront_function" "request_handler" {
-  name = var.route53.domain != null ? "CloudFront Request Handler Function ${replace(var.route53.domain, ".", "_")}" : "CloudFront Request Handler Function ${random_string.oac.id}"
+  name = var.route53.domain != null ? "CloudFront_RHF_${replace(var.route53.domain, ".", "_")}" : "CloudFront_RHF_${random_string.cloudfront_rhf_name.id}"
   runtime = "cloudfront-js-2.0"
   comment = "AWS CloudFront edge function requests handler"
   publish = true
@@ -108,6 +108,14 @@ resource "aws_cloudfront_function" "request_handler" {
 //
 resource "random_string" "oac" {
   length  = 6
+  special = false
+  numeric = true
+}
+
+// Random name generator for OAC bucket policy
+//
+resource "random_string" "cloudfront_rhf_name" {
+  length  = 8
   special = false
   numeric = true
 }
