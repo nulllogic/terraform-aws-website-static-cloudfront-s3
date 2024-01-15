@@ -66,6 +66,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     cloudfront_default_certificate = var.route53.domain != null ? null : true
     acm_certificate_arn            = var.route53.domain != null ? aws_acm_certificate.cert[0].arn : null
     ssl_support_method             = "sni-only"
+    minimum_protocol_version       = "TLSv1.2_2021"
   }
 
   restrictions {
