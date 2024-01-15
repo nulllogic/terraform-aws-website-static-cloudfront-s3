@@ -3,15 +3,13 @@ variable "enable" {
 
   type = object ({
       s3 = object({
-        index_html = bool,
-        upload_dir = string
+        index_html = bool
       })
   })
 
   default = {
     s3 = {
-      index_html = true,
-      upload_dir = ""
+      index_html = true
     }
   }
 }

@@ -104,12 +104,3 @@ resource "aws_s3_object" "index" {
     </html>
   EOF 
 }
-
-// Upload files to s3 bucket
-//
-resource "aws_s3_object" "upload_dir" {
-  count        = var.enable.s3.upload_dir != "" ? 1 : 0
-  bucket       = aws_s3_bucket.main.bucket
-  key          = var.enable.s3.upload_dir
-  content_type = "application/x-directory"
-}
