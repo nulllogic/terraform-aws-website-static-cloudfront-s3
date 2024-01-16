@@ -116,31 +116,41 @@ resource "aws_cloudfront_response_headers_policy" "security" {
   comment = "CloudFront Security Headers Policy configuration"
 
   custom_headers_config {
- #   headers['strict-transport-security'] = { value: 'max-age=63072000; includeSubdomains; preload'}; 
- #   headers['content-security-policy'] = { value: "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; frame-ancestors 'none'"}; 
- #   headers['x-content-type-options'] = { value: 'nosniff'}; 
- #   headers['x-frame-options'] = {value: 'DENY'}; 
- #   headers['x-xss-protection'] = {value: '1; mode=block'};
- #   headers['referrer-policy'] = {value: 'same-origin'};
-
-    items {
-       header   = "X-Content-Type-Options"
-       override = true
-       value    = "nosniff"
-    }
-
-    items {
-      header = "X-Frame-Options"
-      override = true
-      value = "DENY"
-    }
-
     items {
       header   = "X-Permitted-Cross-Domain-Policies"
       override = true
       value    = "none"
     }
   }
+  
+  security_headers_config {
+    content_type_options {
+      override = true
+    }
+    frame_options {
+      frame_option = "DENY"
+      override = true
+    }
+    referrer_policy {
+      referrer_policy = "same-origin"
+      override = true
+    }
+    xss_protection {
+      mode_block = true
+      protection = true
+      override = true
+    }
+    strict_transport_security {
+      access_control_max_age_sec = "63072000"
+      include_subdomains = true
+      preload = true
+      override = true
+    }
+    content_security_policy {
+      content_security_policy = "frame-ancestors 'none'; default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'"
+      override = true
+    }
+  } 
 
   server_timing_headers_config {
     enabled       = true
