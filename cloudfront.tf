@@ -28,6 +28,10 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     domain_name              = aws_s3_bucket.main.bucket_regional_domain_name
     origin_id                = aws_s3_bucket.main.bucket
     origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
+
+    origin_shield {
+      enabled = true
+    }
   }
 
   price_class     = var.cloudfront.root.price_class
