@@ -57,7 +57,10 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       function_arn = aws_cloudfront_function.request_handler.arn
     }
 
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "redirect-to-https"
+
+    // Add additional secutiry policy rules
+    response_headers_policy_id = response_headers_policy_id.security.id
   }
 
   viewer_certificate {
@@ -102,6 +105,47 @@ resource "aws_cloudfront_function" "request_handler" {
         return request;
     }
   EOF
+}
+
+// CloudFront security headers
+//
+
+resource "aws_cloudfront_response_headers_policy" "security" {
+
+  name = var.route53.domain != null ? "CloudFront_SHP_${replace(var.route53.domain, ".", "_")}" : "CloudFront_SHP_${random_string.cloudfront_rhf_name.id}"
+  comment = "CloudFront Security Headers Policy configuration"
+
+  custom_headers_config {
+ #   headers['strict-transport-security'] = { value: 'max-age=63072000; includeSubdomains; preload'}; 
+ #   headers['content-security-policy'] = { value: "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; frame-ancestors 'none'"}; 
+ #   headers['x-content-type-options'] = { value: 'nosniff'}; 
+ #   headers['x-frame-options'] = {value: 'DENY'}; 
+ #   headers['x-xss-protection'] = {value: '1; mode=block'};
+ #   headers['referrer-policy'] = {value: 'same-origin'};
+
+    items {
+       header   = "X-Content-Type-Options"
+       override = true
+       value    = "nosniff"
+    }
+
+    items {
+      header = "X-Frame-Options"
+      override = true
+      value = "DENY"
+    }
+
+    items {
+      header   = "X-Permitted-Cross-Domain-Policies"
+      override = true
+      value    = "none"
+    }
+  }
+
+  server_timing_headers_config {
+    enabled       = true
+    sampling_rate = 50
+  }
 }
 
 // Random name generator for OAC bucket policy
