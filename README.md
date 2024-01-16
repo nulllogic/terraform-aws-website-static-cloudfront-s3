@@ -129,14 +129,32 @@ docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf has
     }
   } 
    ```
-
    </p>
-    <img alt="Example 1" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example1.png" />
+  <br />
+  <img alt="Example 1" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example1.png" />
 </details>
 
 <details> 
-  <summary>Example 2 -> CloudFront + S3 + Domain</summary>
-    <img alt="Example 2" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example2.png" />
+<summary>Example 2 -> CloudFront + S3 + Domain</summary>
+  <p>
+
+  ```hcl
+  module "website-static-cloudfront-s3" {
+    source  = "nulllogic/website-static-cloudfront-s3/aws"
+
+    route53 = {
+      domain = "example.com"
+    }
+
+    tags = {
+       Environment = "dev"
+       Terraform   = "true"
+    }
+  } 
+   ```
+  </p>
+  <br />
+  <img alt="Example 2" src="https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3/raw/master/.imgs/example2.png" />
 </details>
 
 
