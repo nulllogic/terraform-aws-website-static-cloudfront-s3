@@ -60,7 +60,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     viewer_protocol_policy = "redirect-to-https"
 
     // Add additional secutiry policy rules
-    response_headers_policy_id = response_headers_policy_id.security.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.security.id
   }
 
   viewer_certificate {
