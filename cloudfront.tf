@@ -31,6 +31,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 
     origin_shield {
       enabled = true
+      origin_shield_region = "eu-west-1"
     }
   }
 
