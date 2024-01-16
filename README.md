@@ -79,6 +79,8 @@
 
 ✅ Full **test coverage**
 
+🔒 Additional **security** headers
+
 <!-- Quick Start -->
 <a name="-quick-start-" />
 
