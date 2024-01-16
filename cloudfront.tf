@@ -117,6 +117,12 @@ resource "aws_cloudfront_response_headers_policy" "security" {
 
   custom_headers_config {
     items {
+      header   = "permissions-policy"
+      override = true
+      value    = "geolocation=()"
+    }
+
+    items {
       header   = "X-Permitted-Cross-Domain-Policies"
       override = true
       value    = "none"
@@ -150,7 +156,7 @@ resource "aws_cloudfront_response_headers_policy" "security" {
       content_security_policy = "frame-ancestors 'none'; default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'"
       override = true
     }
-  } 
+  }
 
   server_timing_headers_config {
     enabled       = true
