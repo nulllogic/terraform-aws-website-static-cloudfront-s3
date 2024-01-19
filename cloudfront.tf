@@ -159,14 +159,12 @@ resource "aws_cloudfront_response_headers_policy" "security" {
     }
     content_security_policy {
       content_security_policy = <<EOT
-"
-frame-ancestors 'self';
+"frame-ancestors 'self';
 default-src 'self';
 img-src 'self';
 script-src 'nonce-${random_string.cloudfront_csp_nonce.id}';
 style-src 'nonce-${random_string.cloudfront_csp_nonce.id}';
-object-src 'self';
-"
+object-src 'self';"
 EOT
       override = true
     }
