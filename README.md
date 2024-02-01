@@ -91,11 +91,11 @@ By using this project, you can save time and effort in setting up your AWS stati
 
 Feel free to explore the project on [GitHub](https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3). Happy coding!
 
-<strong>1st step</strong>:
+- <strong>1st step</strong>:
 
 Download two files `main.tf` and `provider.tf` from one of examples directories.
 
-<strong>2nd step</strong>:
+- <strong>2nd step</strong>:
 
 Run one of the following commands inside directory with those two files. <br />
 ( it will use docker image with HashiCorp with TerraForm application inside)
@@ -112,7 +112,7 @@ If you haven't used AWS CLI, you can pass those keys directly, by running this c
 docker container run -it --rm -e TF_VAR_aws_access_key_id=XXXXXXXX -e TF_VAR_aws_secret_access_key=XXXXXXX -v $PWD:/tf --workdir /tf hashicorp/terraform:latest init
 ```
 
-<strong>3rd step</strong>:
+- <strong>3rd step</strong>:
 
 Run the command, that you used previously, but instead of `init` at the end of the command, write `apply`
 
@@ -121,7 +121,7 @@ It should look like this :
 docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest apply
 ```
 
-<strong>4th step</strong>:
+- <strong>4th step</strong>:
 
 Run the command, that you used previously, but instead of `apply` at the end of the command, write `deploy`
 
@@ -130,7 +130,7 @@ It should look like this :
 docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest deploy
 ```
 
-<strong>5th step</strong>:
+- <strong>5th step</strong>:
 
 Profit ! 💪
 
