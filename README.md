@@ -91,22 +91,48 @@ By using this project, you can save time and effort in setting up your AWS stati
 
 Feel free to explore the project on [GitHub](https://github.com/nulllogic/terraform-aws-website-static-cloudfront-s3). Happy coding!
 
-1st step
+1st step:
+
+Download two files `main.tf` and `provider.tf` from one of examples directories.
+
+2nd step:
+
+Run one of the following commands inside directory with those two files.
+( it will use docker image with HashiCorp with TerraForm application inside)
+
+If you have used AWS CLI already, you can attach keys by running this command:
 
 ```
 docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest init
 ```
 
-2nd step
+If you haven't used AWS CLI, you can pass those keys directly, by running this command:
+( don't forget to replace XXXX with your AWS keys )
 ```
-docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest plan
+docker container run -it --rm -e TF_VAR_aws_access_key_id=XXXXXXXX -e TF_VAR_aws_secret_access_key=XXXXXXX -v $PWD:/tf --workdir /tf hashicorp/terraform:latest init
 ```
 
-3rd step
+3rd step:
 
+Run the command, that you used previously, but instead of `init` at the end of the command, write `apply`
+
+It should look like this :
 ```
 docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest apply
 ```
+
+4th step
+
+Run the command, that you used previously, but instead of `apply` at the end of the command, write `deploy`
+
+It should look like this :
+```
+docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest deploy
+```
+
+5th step:
+
+Profit ! 💪
 
 <br/>
 
