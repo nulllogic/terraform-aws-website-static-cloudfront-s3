@@ -27,7 +27,7 @@ variable "s3" {
 }
 
 variable "route53" {
-  description = "Route53 varitable to store the settings of Route53 resource"
+  description = "Route53 variable to store the settings of Route53 resource"
 
   type = object({
     domain = string
