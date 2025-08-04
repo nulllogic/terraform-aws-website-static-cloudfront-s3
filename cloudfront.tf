@@ -40,14 +40,12 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   is_ipv6_enabled = true
 
   default_cache_behavior {
+    cache_policy_id = aws_cloudfront_cache_policy.caching.id
+
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = aws_s3_bucket.main.bucket
     compress         = true
-
-    min_ttl     = var.cloudfront.cache_behavior.min_ttl
-    max_ttl     = var.cloudfront.cache_behavior.max_ttl
-    default_ttl = var.cloudfront.cache_behavior.default_ttl
 
     forwarded_values {
       query_string = false
@@ -64,7 +62,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 
     viewer_protocol_policy = "redirect-to-https"
 
-    // Add additional secutiry policy rules
+    // Add additional security policy rules
     response_headers_policy_id = aws_cloudfront_response_headers_policy.security.id
   }
 
@@ -86,6 +84,33 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   tags = var.tags
 }
 
+// CloudFront caching policy
+//
+resource "aws_cloudfront_cache_policy" "caching" {
+  name = var.route53.domain != null ? "CloudFront Caching ${var.route53.domain}" : "CloudFront Caching ${random_string.oac.id}"
+
+  min_ttl = 3600  // 1 hour
+  max_ttl = 86400 // 24 hours
+  default_ttl = 3600
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    cookies_config {
+      cookie_behavior = "none"
+    }
+
+    headers_config {
+      header_behavior = "whitelist"
+      headers = ["Accept", "Accept-Encoding"]
+    }
+
+    query_strings_config {
+      query_string_behavior = "none"
+    }
+
+    enable_accept_encoding_gzip = true
+    enable_accept_encoding_brotli = true
+  }
+}
 
 // CloudFront function to handle requests
 //
