@@ -99,8 +99,7 @@ resource "aws_cloudfront_cache_policy" "caching" {
     }
 
     headers_config {
-      header_behavior = "whitelist"
-      headers = ["Accept", "Accept-Encoding"]
+      header_behavior = "none"
     }
 
     query_strings_config {
