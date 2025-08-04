@@ -49,9 +49,11 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 
     cache_policy_id        = aws_cloudfront_cache_policy.astro_cache_policy.id
     viewer_protocol_policy = "redirect-to-https"
+    compress = true
   }
 
   default_cache_behavior {
+    target_origin_id = aws_s3_bucket.main.id
     cache_policy_id = aws_cloudfront_cache_policy.default_caching.id
 
     // Add additional security policy rules
@@ -60,7 +62,6 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
 
-    target_origin_id = aws_s3_bucket.main.id
     compress         = true
 
     function_association {
@@ -103,7 +104,7 @@ resource "aws_cloudfront_cache_policy" "astro_cache_policy" {
       cookie_behavior = "none"
     }
     headers_config {
-      header_behavior = "none"
+      header_behavior = "whitelist"
     }
     query_strings_config {
       query_string_behavior = "none"
@@ -126,7 +127,7 @@ resource "aws_cloudfront_cache_policy" "default_caching" {
     }
 
     headers_config {
-      header_behavior = "none"
+      header_behavior = "whitelist"
     }
 
     query_strings_config {
@@ -174,6 +175,7 @@ resource "aws_cloudfront_response_headers_policy" "security" {
   comment = "CloudFront Security Headers Policy configuration"
 
   custom_headers_config {
+
     items {
       header   = "permissions-policy"
       override = true
@@ -187,7 +189,7 @@ resource "aws_cloudfront_response_headers_policy" "security" {
     }
 
     items {
-      header   = "x-powered-by"
+      header   = "X-Powered-By"
       value    = "Passion and agression"
       override = true
     }
