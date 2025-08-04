@@ -81,6 +81,8 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     }
   }
 
+  http_version = "http2and3" # to support both HTTP/2 and HTTP/3"
+
   tags = var.tags
 }
 
