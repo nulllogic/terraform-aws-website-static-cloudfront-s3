@@ -169,7 +169,7 @@ resource "aws_cloudfront_response_headers_policy" "security_headers_policy" {
 
     items {
       header   = "x-powered-by"
-      value    = "Passion and tiny cute kittens 😺"
+      value    = "Passion and agression"
       override = true
     }
 
