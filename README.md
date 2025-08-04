@@ -103,13 +103,13 @@ Run one of the following commands inside directory with those two files. <br />
 If you have used AWS CLI already, you can attach keys by running this command:
 
 ```
-docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest init
+docker container run -it --rm -v ${PWD}:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest init
 ```
 
 If you haven't used AWS CLI, you can pass those keys directly, by running this command:
 ( don't forget to replace XXXX with your AWS keys )
 ```
-docker container run -it --rm -e TF_VAR_aws_access_key_id=XXXXXXXX -e TF_VAR_aws_secret_access_key=XXXXXXX -v $PWD:/tf --workdir /tf hashicorp/terraform:latest init
+docker container run -it --rm -e TF_VAR_aws_access_key_id=XXXXXXXX -e TF_VAR_aws_secret_access_key=XXXXXXX -v {PWD}:/tf --workdir /tf hashicorp/terraform:latest init
 ```
 
 <strong>3rd step</strong>:
@@ -118,7 +118,7 @@ Run the command, that you used previously, but instead of `init` at the end of t
 
 It should look like this :
 ```
-docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest apply
+docker container run -it --rm -v {PWD}:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest apply
 ```
 
 <strong>4th step</strong>:
@@ -127,7 +127,7 @@ Run the command, that you used previously, but instead of `apply` at the end of 
 
 It should look like this :
 ```
-docker container run -it --rm -v $PWD:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest deploy
+docker container run -it --rm -v {PWD}:/tf -v ~/.aws:/root/.aws --workdir /tf hashicorp/terraform:latest deploy
 ```
 
 <strong>5th step</strong>:
