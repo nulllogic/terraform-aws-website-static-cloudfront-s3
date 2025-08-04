@@ -21,8 +21,11 @@ resource "aws_cloudfront_origin_access_control" "oac" {
 resource "aws_cloudfront_distribution" "cloudfront" {
   provider = aws.main
 
+  enabled         = true
+  is_ipv6_enabled = true
   default_root_object = var.cloudfront.root.default_object
   aliases             = var.route53.domain != null ? [var.route53.domain] : []
+  http_version = "http2and3" # to support both HTTP/2 and HTTP/3"
 
   origin {
     domain_name              = aws_s3_bucket.main.bucket_regional_domain_name
@@ -36,15 +39,28 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   }
 
   price_class     = var.cloudfront.root.price_class
-  enabled         = true
-  is_ipv6_enabled = true
+
+  ordered_cache_behavior {
+    target_origin_id = aws_s3_bucket.main.id
+    path_pattern     = "/_astro/*"
+
+    allowed_methods = ["GET", "HEAD"]
+    cached_methods  = ["GET", "HEAD"]
+
+    cache_policy_id        = aws_cloudfront_cache_policy.astro_cache_policy.id
+    viewer_protocol_policy = "redirect-to-https"
+  }
 
   default_cache_behavior {
-    cache_policy_id = aws_cloudfront_cache_policy.caching.id
+    cache_policy_id = aws_cloudfront_cache_policy.default_caching.id
+
+    // Add additional security policy rules
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.security_headers_policy.id
 
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = aws_s3_bucket.main.bucket
+
+    target_origin_id = aws_s3_bucket.main.id
     compress         = true
 
     function_association {
@@ -53,9 +69,6 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     }
 
     viewer_protocol_policy = "redirect-to-https"
-
-    // Add additional security policy rules
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.security.id
   }
 
   viewer_certificate {
@@ -71,15 +84,37 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     }
   }
 
-  http_version = "http2and3" # to support both HTTP/2 and HTTP/3"
-
   tags = var.tags
+}
+
+
+// CloudFront Astro caching policy
+//
+resource "aws_cloudfront_cache_policy" "astro_cache_policy" {
+  name        = "CloudFront_Astro_caching_policy"
+  comment     = "Caching policy for files in _astro directory"
+
+  min_ttl = 3600  // 1 hour
+  max_ttl = 86400 // 24 hours
+  default_ttl = 3600
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    cookies_config {
+      cookie_behavior = "none"
+    }
+    headers_config {
+      header_behavior = "none"
+    }
+    query_strings_config {
+      query_string_behavior = "none"
+    }
+  }
 }
 
 // CloudFront caching policy
 //
-resource "aws_cloudfront_cache_policy" "caching" {
-  name = "CloudFront_caching_policy"
+resource "aws_cloudfront_cache_policy" "default_caching" {
+  name = "CloudFront_default_caching_policy"
 
   min_ttl = 3600  // 1 hour
   max_ttl = 86400 // 24 hours
@@ -100,6 +135,44 @@ resource "aws_cloudfront_cache_policy" "caching" {
 
     enable_accept_encoding_gzip = true
     enable_accept_encoding_brotli = true
+  }
+}
+
+// CloudFront response headers policy
+//
+resource "aws_cloudfront_response_headers_policy" "security_headers_policy" {
+  name = "CloudFront_response_headers_policy"
+
+  security_headers_config {
+    content_type_options {
+      override = true
+    }
+
+    referrer_policy {
+      referrer_policy = "strict-origin-when-cross-origin"
+      override        = true
+    }
+
+    strict_transport_security {
+      access_control_max_age_sec = 31536000
+      override                   = true
+    }
+
+    xss_protection {
+      mode_block = true
+      protection = true
+      override   = true
+    }
+  }
+
+  custom_headers_config {
+
+    items {
+      header   = "x-powered-by"
+      value    = "Passion and tiny cute kittens 😺"
+      override = true
+    }
+
   }
 }
 
