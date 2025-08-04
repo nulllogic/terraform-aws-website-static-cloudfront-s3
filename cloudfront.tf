@@ -47,14 +47,6 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     target_origin_id = aws_s3_bucket.main.bucket
     compress         = true
 
-    forwarded_values {
-      query_string = false
-
-      cookies {
-        forward = "none"
-      }
-    }
-
     function_association {
       event_type   = "viewer-request"
       function_arn = aws_cloudfront_function.request_handler.arn
