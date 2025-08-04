@@ -87,7 +87,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 // CloudFront caching policy
 //
 resource "aws_cloudfront_cache_policy" "caching" {
-  name = "CloudFront_Caching"
+  name = "CloudFront_caching_policy"
 
   min_ttl = 3600  // 1 hour
   max_ttl = 86400 // 24 hours
