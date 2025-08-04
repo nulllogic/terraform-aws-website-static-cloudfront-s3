@@ -55,7 +55,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     cache_policy_id = aws_cloudfront_cache_policy.default_caching.id
 
     // Add additional security policy rules
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.security_headers_policy.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.security.id
 
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
@@ -138,44 +138,6 @@ resource "aws_cloudfront_cache_policy" "default_caching" {
   }
 }
 
-// CloudFront response headers policy
-//
-resource "aws_cloudfront_response_headers_policy" "security_headers_policy" {
-  name = "CloudFront_response_headers_policy"
-
-  security_headers_config {
-    content_type_options {
-      override = true
-    }
-
-    referrer_policy {
-      referrer_policy = "strict-origin-when-cross-origin"
-      override        = true
-    }
-
-    strict_transport_security {
-      access_control_max_age_sec = 31536000
-      override                   = true
-    }
-
-    xss_protection {
-      mode_block = true
-      protection = true
-      override   = true
-    }
-  }
-
-  custom_headers_config {
-
-    items {
-      header   = "x-powered-by"
-      value    = "Passion and agression"
-      override = true
-    }
-
-  }
-}
-
 // CloudFront function to handle requests
 //
 resource "aws_cloudfront_function" "request_handler" {
@@ -222,6 +184,12 @@ resource "aws_cloudfront_response_headers_policy" "security" {
       header   = "X-Permitted-Cross-Domain-Policies"
       override = true
       value    = "none"
+    }
+
+    items {
+      header   = "x-powered-by"
+      value    = "Passion and agression"
+      override = true
     }
   }
   
