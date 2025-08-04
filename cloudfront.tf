@@ -163,18 +163,6 @@ resource "aws_cloudfront_response_headers_policy" "security" {
       override = true
     }
 
-    content_security_policy {
-      content_security_policy = replace(trimspace(<<EOT
-frame-ancestors 'self';
-default-src 'self';
-img-src 'self';
-script-src 'nonce-${random_string.cloudfront_csp_nonce.id}';
-style-src 'nonce-${random_string.cloudfront_csp_nonce.id}';
-object-src 'self';
-EOT
-), "\n", "")
-      override = true
-    }
   }
 
   server_timing_headers_config {
@@ -197,14 +185,5 @@ resource "random_string" "cloudfront_rhf_name" {
   length  = 8
   special = false
   numeric = true
-}
-
-// Random name generator for OAC bucket policy
-//
-resource "random_string" "cloudfront_csp_nonce" {
-  length  = 8
-  special = false
-  numeric = true
-  lower = true
 }
 
