@@ -87,7 +87,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 // CloudFront caching policy
 //
 resource "aws_cloudfront_cache_policy" "caching" {
-  name = var.route53.domain != null ? "CloudFront Caching ${var.route53.domain}" : "CloudFront Caching ${random_string.oac.id}"
+  name = var.route53.domain != null ? "CloudFront_Caching_${var.route53.domain}" : "CloudFront_Caching_${random_string.oac.id}"
 
   min_ttl = 3600  // 1 hour
   max_ttl = 86400 // 24 hours
