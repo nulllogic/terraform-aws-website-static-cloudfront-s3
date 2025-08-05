@@ -203,7 +203,7 @@ resource "aws_cloudfront_response_headers_policy" "security" {
 
     items {
       header   = "X-Powered-By"
-      value    = "Passion and agression"
+      value    = "Passion & Agression"
       override = true
     }
   }
