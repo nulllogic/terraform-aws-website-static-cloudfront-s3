@@ -135,7 +135,7 @@ resource "aws_cloudfront_cache_policy" "default_caching" {
     }
 
     headers_config {
-      header_behavior = "whitelist",
+      header_behavior = "whitelist"
       items = concat(["x-powered-by", "cache-control"])
     }
 
