@@ -21,11 +21,11 @@ resource "aws_cloudfront_origin_access_control" "oac" {
 resource "aws_cloudfront_distribution" "cloudfront" {
   provider = aws.main
 
-  enabled         = true
-  is_ipv6_enabled = true
+  enabled             = true
+  is_ipv6_enabled     = true
   default_root_object = var.cloudfront.root.default_object
   aliases             = var.route53.domain != null ? [var.route53.domain] : []
-  http_version = "http2and3" # to support both HTTP/2 and HTTP/3"
+  http_version        = "http2and3" # to support both HTTP/2 and HTTP/3"
 
   origin {
     domain_name              = aws_s3_bucket.main.bucket_regional_domain_name
@@ -33,12 +33,12 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
 
     origin_shield {
-      enabled = true
+      enabled              = true
       origin_shield_region = "eu-west-1"
     }
   }
 
-  price_class     = var.cloudfront.root.price_class
+  price_class = var.cloudfront.root.price_class
 
   ordered_cache_behavior {
     target_origin_id = aws_s3_bucket.main.id
@@ -49,20 +49,20 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 
     cache_policy_id        = aws_cloudfront_cache_policy.astro_cache_policy.id
     viewer_protocol_policy = "redirect-to-https"
-    compress = true
+    compress               = true
   }
 
   default_cache_behavior {
     target_origin_id = aws_s3_bucket.main.id
-    cache_policy_id = aws_cloudfront_cache_policy.default_caching.id
+    cache_policy_id  = aws_cloudfront_cache_policy.default_caching.id
 
     // Add additional security policy rules
     response_headers_policy_id = aws_cloudfront_response_headers_policy.security.id
 
-    allowed_methods  = ["GET", "HEAD"]
-    cached_methods   = ["GET", "HEAD"]
+    allowed_methods = ["GET", "HEAD"]
+    cached_methods  = ["GET", "HEAD"]
 
-    compress         = true
+    compress = true
 
     function_association {
       event_type   = "viewer-request"
@@ -92,11 +92,11 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 // CloudFront Astro caching policy
 //
 resource "aws_cloudfront_cache_policy" "astro_cache_policy" {
-  name        = "CloudFront_Astro_caching_policy"
-  comment     = "Caching policy for files in _astro directory"
+  name    = "CloudFront_Astro_caching_policy"
+  comment = "Caching policy for files in _astro directory"
 
-  min_ttl = 3600  // 1 hour
-  max_ttl = 86400 // 24 hours
+  min_ttl     = 3600  // 1 hour
+  max_ttl     = 86400 // 24 hours
   default_ttl = 3600
 
   parameters_in_cache_key_and_forwarded_to_origin {
@@ -116,7 +116,7 @@ resource "aws_cloudfront_cache_policy" "astro_cache_policy" {
       query_string_behavior = "none"
     }
 
-    enable_accept_encoding_gzip = true
+    enable_accept_encoding_gzip   = true
     enable_accept_encoding_brotli = true
   }
 }
@@ -126,8 +126,8 @@ resource "aws_cloudfront_cache_policy" "astro_cache_policy" {
 resource "aws_cloudfront_cache_policy" "default_caching" {
   name = "CloudFront_default_caching_policy"
 
-  min_ttl = 3600  // 1 hour
-  max_ttl = 86400 // 24 hours
+  min_ttl     = 3600  // 1 hour
+  max_ttl     = 86400 // 24 hours
   default_ttl = 3600
 
   parameters_in_cache_key_and_forwarded_to_origin {
@@ -147,7 +147,7 @@ resource "aws_cloudfront_cache_policy" "default_caching" {
       query_string_behavior = "none"
     }
 
-    enable_accept_encoding_gzip = true
+    enable_accept_encoding_gzip   = true
     enable_accept_encoding_brotli = true
   }
 }
@@ -155,7 +155,7 @@ resource "aws_cloudfront_cache_policy" "default_caching" {
 // CloudFront function to handle requests
 //
 resource "aws_cloudfront_function" "request_handler" {
-  name = var.route53.domain != null ? "CloudFront_RHF_${replace(var.route53.domain, ".", "_")}" : "CloudFront_RHF_${random_string.cloudfront_rhf_name.id}"
+  name    = var.route53.domain != null ? "CloudFront_RHF_${replace(var.route53.domain, ".", "_")}" : "CloudFront_RHF_${random_string.cloudfront_rhf_name.id}"
   runtime = "cloudfront-js-2.0"
   comment = "AWS CloudFront edge function requests handler"
   publish = true
@@ -184,7 +184,7 @@ resource "aws_cloudfront_function" "request_handler" {
 
 resource "aws_cloudfront_response_headers_policy" "security" {
 
-  name = var.route53.domain != null ? "CloudFront_SHP_${replace(var.route53.domain, ".", "_")}" : "CloudFront_SHP_${random_string.cloudfront_rhf_name.id}"
+  name    = var.route53.domain != null ? "CloudFront_SHP_${replace(var.route53.domain, ".", "_")}" : "CloudFront_SHP_${random_string.cloudfront_rhf_name.id}"
   comment = "CloudFront Security Headers Policy configuration"
 
   custom_headers_config {
@@ -207,34 +207,34 @@ resource "aws_cloudfront_response_headers_policy" "security" {
       override = true
     }
   }
-  
+
   security_headers_config {
-    
+
     content_type_options {
       override = true
     }
 
     frame_options {
       frame_option = "DENY"
-      override = true
+      override     = true
     }
 
     referrer_policy {
       referrer_policy = "same-origin"
-      override = true
+      override        = true
     }
 
     xss_protection {
       mode_block = true
       protection = true
-      override = true
+      override   = true
     }
 
     strict_transport_security {
       access_control_max_age_sec = "63072000"
-      include_subdomains = true
-      preload = true
-      override = true
+      include_subdomains         = true
+      preload                    = true
+      override                   = true
     }
 
   }
