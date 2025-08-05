@@ -107,7 +107,7 @@ resource "aws_cloudfront_cache_policy" "astro_cache_policy" {
 
     headers_config {
       header_behavior = "whitelist"
-      items = ["X-Powered-By", "Cache-Control"]
+      items = concat(["X-Powered-By", "Cache-Control"])
     }
 
     query_strings_config {
