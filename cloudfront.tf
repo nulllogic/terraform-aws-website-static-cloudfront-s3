@@ -100,15 +100,22 @@ resource "aws_cloudfront_cache_policy" "astro_cache_policy" {
   default_ttl = 3600
 
   parameters_in_cache_key_and_forwarded_to_origin {
+
     cookies_config {
       cookie_behavior = "none"
     }
+
     headers_config {
       header_behavior = "whitelist"
+      items = ["X-Powered-By", "Cache-Control"]
     }
+
     query_strings_config {
       query_string_behavior = "none"
     }
+
+    enable_accept_encoding_gzip = true
+    enable_accept_encoding_brotli = true
   }
 }
 
@@ -122,12 +129,14 @@ resource "aws_cloudfront_cache_policy" "default_caching" {
   default_ttl = 3600
 
   parameters_in_cache_key_and_forwarded_to_origin {
+
     cookies_config {
       cookie_behavior = "none"
     }
 
     headers_config {
-      header_behavior = "whitelist"
+      header_behavior = "whitelist",
+      items = ["x-powered-by", "cache-control"]
     }
 
     query_strings_config {
