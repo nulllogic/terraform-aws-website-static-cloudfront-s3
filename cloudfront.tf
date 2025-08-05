@@ -219,11 +219,6 @@ resource "aws_cloudfront_response_headers_policy" "security" {
       override = true
     }
 
-    referrer_policy {
-      referrer_policy = "same-origin"
-      override = true
-    }
-
     xss_protection {
       mode_block = true
       protection = true
@@ -246,6 +241,7 @@ resource "aws_cloudfront_response_headers_policy" "security" {
       referrer_policy = "same-origin"
       override = true
     }
+
 
   }
 
