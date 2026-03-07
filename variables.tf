@@ -84,13 +84,13 @@ variable "custom_error_responses" {
   default = [
     {
       error_code            = 403
-      response_page_path    = "/404/index.html"
+      response_page_path    = "/404.html"
       response_code         = 404
       error_caching_min_ttl = 10
     },
     {
       error_code            = 404
-      response_page_path    = "/404/index.html"
+      response_page_path    = "/404.html"
       response_code         = 404
       error_caching_min_ttl = 10
     }
