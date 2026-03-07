@@ -26,8 +26,8 @@ resource "aws_route53_record" "website" {
 resource "aws_route53_record" "txt_record_multiple" {
   count = var.route53.txt_record_multiple != null ? 1 : 0
 
-  name    = aws_cloudfront_distribution.cloudfront.domain_name
-  zone_id = aws_cloudfront_distribution.cloudfront.hosted_zone_id
+  name    = var.route53.domain
+  zone_id = data.aws_route53_zone.zone[0].id
   type    = "TXT"
   ttl     = "300"
 
