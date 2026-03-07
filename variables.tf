@@ -30,11 +30,13 @@ variable "route53" {
   description = "Route53 variable to store the settings of Route53 resource"
 
   type = object({
-    domain = string
+    domain = string,
+    txt_record_multiple = list(string)
   })
 
   default = {
-    domain = null
+    domain = null,
+    txt_record_multiple = null
   }
 }
 
