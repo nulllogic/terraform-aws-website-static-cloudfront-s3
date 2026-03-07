@@ -72,3 +72,27 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "custom_error_responses" {
+  description = "Custom error response configurations"
+  type = list(object({
+    error_code            = number
+    response_page_path    = string
+    response_code         = number
+    error_caching_min_ttl = number
+  }))
+  default = [
+    {
+      error_code            = 403
+      response_page_path    = "/404/index.html"
+      response_code         = 404
+      error_caching_min_ttl = 10
+    },
+    {
+      error_code            = 404
+      response_page_path    = "/404/index.html"
+      response_code         = 404
+      error_caching_min_ttl = 10
+    }
+  ]
+}
