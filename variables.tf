@@ -51,7 +51,8 @@ variable "cloudfront" {
       default_ttl = number,
       max_ttl     = number,
       min_ttl     = number,
-    })
+    }),
+    content_security_policy = string
   })
 
   default = {
@@ -63,7 +64,8 @@ variable "cloudfront" {
       min_ttl     = 31536000
       max_ttl     = 31536000
       default_ttl = 31536000
-    }
+    },
+    content_security_policy = "frame-ancestors 'none'; default-src 'none'; img-src *; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'"
   }
 }
 
