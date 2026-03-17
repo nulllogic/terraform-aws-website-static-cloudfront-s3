@@ -24,7 +24,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = var.cloudfront.root.default_object
-  aliases             = var.route53.domain != null ? [var.route53.domain] : []
+  aliases             = var.route53.domain != null ? [var.route53.domain, "www.${var.route53.domain}"] : []
   http_version        = "http2and3" # to support both HTTP/2 and HTTP/3"
 
   origin {

@@ -23,6 +23,17 @@ resource "aws_route53_record" "website" {
   }
 }
 
+resource "aws_route53_record" "www" {
+  count = var.route53.domain != null ? 1 : 0
+
+  zone_id = data.aws_route53_zone.zone[0].id
+  name    = "www.${var.route53.domain}"
+  type    = "CNAME"
+  ttl     = "300"
+
+  records = [var.route53.domain]
+}
+
 resource "aws_route53_record" "txt_record_multiple" {
   count = var.route53.txt_record_multiple != null ? 1 : 0
 
