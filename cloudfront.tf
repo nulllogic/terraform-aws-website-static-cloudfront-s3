@@ -174,11 +174,24 @@ resource "aws_cloudfront_function" "request_handler" {
     function handler(event) {
         var request = event.request;
         var uri = request.uri;
+        var host = event.request.headers.host.value;
+
+        if (host.startsWith('www.')) {
+            var newHost = host.replace('www.', '');
+            return {
+                statusCode: 301,
+                statusDescription: 'Moved Permanently',
+                headers: {
+                    'location': { 'value': 'https://' + newHost + event.request.uri }
+                }
+            };
+        }
         
         // Check whether the URI is missing a file name.
         if (uri.endsWith('/')) {
             request.uri += 'index.html';
-        } 
+        }
+
         // Check whether the URI is missing a file extension.
         else if (!uri.includes('.')) {
             request.uri += '/index.html';
