@@ -298,14 +298,6 @@ resource "random_string" "oac" {
   numeric = true
 }
 
-// Random name generator for OAC bucket policy
-//
-resource "random_string" "oac" {
-  length  = 6
-  special = false
-  numeric = true
-}
-
 // Random name generator for (RHF) response headers function policy
 //
 resource "random_string" "cloudfront_rhf_name" {
