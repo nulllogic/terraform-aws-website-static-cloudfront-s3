@@ -102,7 +102,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 // CloudFront Astro caching policy
 //
 resource "aws_cloudfront_cache_policy" "astro_cache_policy" {
-  name    = var.route53.domain != null ? "imagaes_cache_policy_${replace(var.route53.domain, ".", "_")}" : "imagaes_cache_policy_${random_string.cloudfront_rhf_name.id}"
+  name    = var.route53.domain != null ? "cache_images_policy_${replace(var.route53.domain, ".", "_")}" : "cache_images_policy_${random_string.cache_images_policy.id}"
   comment = "Caching policy for files in _astro directory"
 
   min_ttl     = 3600  // 1 hour
@@ -134,7 +134,7 @@ resource "aws_cloudfront_cache_policy" "astro_cache_policy" {
 // CloudFront caching policy
 //
 resource "aws_cloudfront_cache_policy" "default_caching" {
-  name    = var.route53.domain != null ? "cache_policy_${replace(var.route53.domain, ".", "_")}" : "cache_policy_${random_string.cloudfront_rhf_name.id}"
+  name    = var.route53.domain != null ? "cache_policy_${replace(var.route53.domain, ".", "_")}" : "cache_policy_${random_string.cache_policy.id}"
 
   min_ttl     = 3600  // 1 hour
   max_ttl     = 86400 // 24 hours
@@ -272,6 +272,30 @@ resource "aws_cloudfront_response_headers_policy" "security" {
     enabled       = true
     sampling_rate = 50
   }
+}
+
+// Random name generator for cache policy bucket policy
+//
+resource "random_string" "cache_policy" {
+  length  = 6
+  special = false
+  numeric = true
+}
+
+// Random name generator for cache policy images bucket policy
+//
+resource "random_string" "cache_images_policy" {
+  length  = 6
+  special = false
+  numeric = true
+}
+
+// Random name generator for OAC bucket policy
+//
+resource "random_string" "oac" {
+  length  = 6
+  special = false
+  numeric = true
 }
 
 // Random name generator for OAC bucket policy
