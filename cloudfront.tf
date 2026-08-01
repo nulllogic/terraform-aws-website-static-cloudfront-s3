@@ -10,7 +10,7 @@
 // -- Manages an AWS CloudFront Origin Access Control, 
 // -- which is used by CloudFront Distributions with an Amazon S3 bucket as the origin.
 resource "aws_cloudfront_origin_access_control" "oac" {
-  name                              = var.route53.domain != null ? "CloudFront OAC ${var.route53.domain}" : "CloudFront OAC ${random_string.oac.id}"
+  name                              = var.route53.domain != null ? "OAC_${var.route53.domain}" : "OAC_${random_string.oac.id}"
   description                       = "CloudFront Origin Access Control"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
@@ -102,7 +102,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 // CloudFront Astro caching policy
 //
 resource "aws_cloudfront_cache_policy" "astro_cache_policy" {
-  name    = "CloudFront_Astro_caching_policy"
+  name    = var.route53.domain != null ? "imagaes_cache_policy_${replace(var.route53.domain, ".", "_")}" : "imagaes_cache_policy_${random_string.cloudfront_rhf_name.id}"
   comment = "Caching policy for files in _astro directory"
 
   min_ttl     = 3600  // 1 hour
@@ -134,7 +134,7 @@ resource "aws_cloudfront_cache_policy" "astro_cache_policy" {
 // CloudFront caching policy
 //
 resource "aws_cloudfront_cache_policy" "default_caching" {
-  name = "CloudFront_default_caching_policy"
+  name    = var.route53.domain != null ? "cache_policy_${replace(var.route53.domain, ".", "_")}" : "cache_policy_${random_string.cloudfront_rhf_name.id}"
 
   min_ttl     = 3600  // 1 hour
   max_ttl     = 86400 // 24 hours
@@ -165,7 +165,7 @@ resource "aws_cloudfront_cache_policy" "default_caching" {
 // CloudFront function to handle requests
 //
 resource "aws_cloudfront_function" "request_handler" {
-  name    = var.route53.domain != null ? "CloudFront_RHF_${replace(var.route53.domain, ".", "_")}" : "CloudFront_RHF_${random_string.cloudfront_rhf_name.id}"
+  name    = var.route53.domain != null ? "RH_${replace(var.route53.domain, ".", "_")}" : "RH_${random_string.cloudfront_rhf_name.id}"
   runtime = "cloudfront-js-2.0"
   comment = "AWS CloudFront edge function requests handler"
   publish = true
@@ -207,7 +207,7 @@ resource "aws_cloudfront_function" "request_handler" {
 
 resource "aws_cloudfront_response_headers_policy" "security" {
 
-  name    = var.route53.domain != null ? "CloudFront_SHP_${replace(var.route53.domain, ".", "_")}" : "CloudFront_SHP_${random_string.cloudfront_rhf_name.id}"
+  name    = var.route53.domain != null ? "RHP_${replace(var.route53.domain, ".", "_")}" : "RHP_${random_string.cloudfront_rhp_name.id}"
   comment = "CloudFront Security Headers Policy configuration"
 
   custom_headers_config {
@@ -282,9 +282,17 @@ resource "random_string" "oac" {
   numeric = true
 }
 
-// Random name generator for OAC bucket policy
+// Random name generator for (RHF) response headers function policy
 //
 resource "random_string" "cloudfront_rhf_name" {
+  length  = 8
+  special = false
+  numeric = true
+}
+
+// Random name generator for (RHP) response headers policy
+//
+resource "random_string" "cloudfront_rhp_name" {
   length  = 8
   special = false
   numeric = true
